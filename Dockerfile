@@ -7,6 +7,6 @@ COPY . .
 
 RUN pip3 install -r requirements.txt
 
-CMD ["echo $PATH"]
+EXPOSE 8080
 
-CMD ["greppo", "serve", "app.py", "0.0.0.0", $PORT]
+CMD greppo serve app.py --host 0.0.0.0 --port 8080
