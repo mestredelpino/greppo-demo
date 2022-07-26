@@ -3,7 +3,7 @@
 FROM python:3.9-slim-buster
 
 WORKDIR /src
-COPY /vector-demo /
+COPY / .
 
 RUN pip3 install -r requirements.txt
 
