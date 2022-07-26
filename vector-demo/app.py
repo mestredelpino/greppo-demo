@@ -17,9 +17,9 @@ app.base_layer(
     provider="CartoDB Positron",
 )
 
-regions = gpd.read_file("https://storage.cloud.google.com/greppo-data/regions-geojson")
-roads = gpd.read_file("https://storage.cloud.google.com/greppo-data/roads-geojson")
-cities = gpd.read_file("https://storage.cloud.google.com/greppo-data/cities-geojson")
+regions = gpd.read_file("./regions.geojson")
+roads = gpd.read_file("./roads.geojson")
+cities = gpd.read_file("./cities.geojson")
 
 app.vector_layer(
     data=regions,
