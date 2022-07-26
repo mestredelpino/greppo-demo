@@ -7,6 +7,4 @@ COPY . .
 
 RUN pip3 install -r requirements.txt
 
-CMD ["echo $PATH"]
-
 CMD ["greppo", "serve", "app.py", "0.0.0.0", $PORT]
