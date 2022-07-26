@@ -9,4 +9,4 @@ RUN pip3 install -r requirements.txt
 
 WORKDIR /vector-demo
 
-CMD ["greppo", "serve", "app.py", "--host=0.0.0.0"]
+CMD ["greppo", "serve", "app.py", "--host=0.0.0.0", "--port=8080"]
