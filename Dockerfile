@@ -7,4 +7,4 @@ COPY /vector-demo .
 
 RUN pip3 install -r requirements.txt
 
-CMD ["greppo", "serve", "app.py", "--host=0.0.0.0"]
+CMD ["greppo", "serve", "./vector-demo/app.py", "--host=0.0.0.0"]
