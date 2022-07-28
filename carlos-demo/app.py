@@ -4,15 +4,19 @@ import gcsfs
 import json
 
 
-gcs_file_system = gcsfs.GCSFileSystem(project="gcp_project_name")
+gcs_file_system = gcsfs.GCSFileSystem(project="carlos-lab")
 cities_file = "gs://greppo-data/cities-geojson"
 roads_file = "gs://greppo-data/roads-geojson"
 regions_file = "gs://greppo-data/regions-geojson"
 
 with gcs_file_system.open(cities_file) as cities, gcs_file_system.open(roads_file) as roads, gcs_file_system.open(regions_file) as regions:
-  cities_df = json.load(cities)
-  roads_df = json.load(roads)
-  regions_df = json.load(regions)
+  cities_json = json.load(cities)
+  roads_json = json.load(roads)
+  regions_json = json.load(regions)
+
+cities_df = gpd.GeoDataFrame.from_features(cities_json["features"])
+roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
+regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',
