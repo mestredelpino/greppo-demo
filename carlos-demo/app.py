@@ -15,8 +15,8 @@ with gcs_file_system.open(cities_file) as cities, gcs_file_system.open(roads_fil
   regions_json = json.load(regions)
 
 cities_df = gpd.GeoDataFrame.from_features(cities_json["features"])
-# roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
-# regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
+roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
+regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',
@@ -35,19 +35,19 @@ app.base_layer(
 )
 
 
-# app.vector_layer(
-#     data=regions_df,
-#     name="Regions of Italy",
-#     description="Polygons showing the boundaries of regions of Italy.",
-#     style={"fillColor": "#4daf4a"},
-# )
+app.vector_layer(
+    data=regions_df,
+    name="Regions of Italy",
+    description="Polygons showing the boundaries of regions of Italy.",
+    style={"fillColor": "#4daf4a"},
+)
 
-# app.vector_layer(
-#     data=roads_df,
-#     name="Highways in Italy",
-#     description="Lines showing the major highways in Italy.",
-#     style={"color": "#377eb8"},
-# )
+app.vector_layer(
+    data=roads_df,
+    name="Highways in Italy",
+    description="Lines showing the major highways in Italy.",
+    style={"color": "#377eb8"},
+)
 
 app.vector_layer(
     data=cities_df,
