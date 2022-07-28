@@ -15,8 +15,8 @@ with gcs_file_system.open(cities_file) as cities, gcs_file_system.open(roads_fil
   regions_json = json.load(regions)
 
 cities_df = gpd.GeoDataFrame.from_features(cities_json["features"])
-roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
-regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
+# roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
+# regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
 
 app.display(name='title', value='Vector demo')
 app.display(name='description',
@@ -34,31 +34,20 @@ app.base_layer(
     provider="CartoDB Positron",
 )
 
-# regions = gpd.GeoDataFrame.from_features(study_area["features"])
 
+# app.vector_layer(
+#     data=regions_df,
+#     name="Regions of Italy",
+#     description="Polygons showing the boundaries of regions of Italy.",
+#     style={"fillColor": "#4daf4a"},
+# )
 
-# regions = gpd.read_file("https://storage.cloud.google.com/greppo-data/regions-geojson")
-# roads = gpd.read_file("https://storage.cloud.google.com/greppo-data/roads-geojson")
-# cities = gpd.read_file("https://storage.cloud.google.com/greppo-data/cities-geojson")
-
-
-# regions = gpd.read_file("https://storage.cloud.google.com/greppo-data/regions-geojson")
-# roads = gpd.read_file("https://storage.cloud.google.com/greppo-data/roads-geojson")
-# cities = gpd.read_file("https://storage.cloud.google.com/greppo-data/cities-geojson")
-
-app.vector_layer(
-    data=regions_df,
-    name="Regions of Italy",
-    description="Polygons showing the boundaries of regions of Italy.",
-    style={"fillColor": "#4daf4a"},
-)
-
-app.vector_layer(
-    data=roads_df,
-    name="Highways in Italy",
-    description="Lines showing the major highways in Italy.",
-    style={"color": "#377eb8"},
-)
+# app.vector_layer(
+#     data=roads_df,
+#     name="Highways in Italy",
+#     description="Lines showing the major highways in Italy.",
+#     style={"color": "#377eb8"},
+# )
 
 app.vector_layer(
     data=cities_df,
@@ -80,5 +69,5 @@ app.display(name='text-1', value=text_1)
 app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
-app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+# app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
+#               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')

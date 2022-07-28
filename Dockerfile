@@ -3,10 +3,10 @@
 FROM python:3.9-slim-buster
 
 
-COPY /vector-demo/ /vector-demo/
+COPY /carlos-demo/ /carlos-demo/
 COPY /requirements.txt /vector-demo/requirements.txt
 
-WORKDIR /vector-demo
+WORKDIR /carlos-demo
 
 RUN pip3 install -r requirements.txt
 
