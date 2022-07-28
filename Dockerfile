@@ -4,7 +4,7 @@ FROM python:3.9-slim-buster
 
 
 COPY /carlos-demo/ /carlos-demo/
-COPY /requirements.txt /vector-demo/requirements.txt
+COPY /requirements.txt /carlos-demo/requirements.txt
 
 WORKDIR /carlos-demo
 
