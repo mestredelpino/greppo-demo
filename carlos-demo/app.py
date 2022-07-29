@@ -2,26 +2,35 @@ from greppo import app
 import geopandas as gpd
 import gcsfs
 import json
+import os
+
+bucket          = os.environ["BUCKET"]
 
 
 gcs_file_system = gcsfs.GCSFileSystem(project="carlos-lab")
-cities_file = "gs://greppo-data/cities-geojson"
-roads_file = "gs://greppo-data/roads-geojson"
-regions_file = "gs://greppo-data/regions-geojson"
 
+# Define the location of the geojson files
+cities_file = f"gs://{bucket}/cities-geojson"
+roads_file = f"gs://{bucket}/roads-geojson"
+regions_file = f"gs://{bucket}/regions-geojson"
+
+# Read the files as json
 with gcs_file_system.open(cities_file) as cities, gcs_file_system.open(roads_file) as roads, gcs_file_system.open(regions_file) as regions:
   cities_json = json.load(cities)
   roads_json = json.load(roads)
   regions_json = json.load(regions)
 
+# Convert to geojson
 cities_df = gpd.GeoDataFrame.from_features(cities_json["features"])
 roads_df = gpd.GeoDataFrame.from_features(roads_json["features"])
 regions_df = gpd.GeoDataFrame.from_features(regions_json["features"])
 
+# Add a title and description for your app
 app.display(name='title', value='Vector demo')
 app.display(name='description',
             value='A Greppo demo app for vector data using GeoJSON data.')
 
+# Add one or more base layers
 app.base_layer(
     name="Open Street Map",
     visible=True,
@@ -29,26 +38,23 @@ app.base_layer(
     subdomains=None,
     attribution='(C) OpenStreetMap contributors',
 )
-
 app.base_layer(
     provider="CartoDB Positron",
 )
 
-
+# Load now your vector layers
 app.vector_layer(
     data=regions_df,
     name="Regions of Italy",
     description="Polygons showing the boundaries of regions of Italy.",
     style={"fillColor": "#4daf4a"},
 )
-
 app.vector_layer(
     data=roads_df,
     name="Highways in Italy",
     description="Lines showing the major highways in Italy.",
     style={"color": "#377eb8"},
 )
-
 app.vector_layer(
     data=cities_df,
     name="Cities of Italy",
@@ -69,5 +75,5 @@ app.display(name='text-1', value=text_1)
 app.display(name='text-2',
             value='The following displays the count of polygons, lines and points as a barchart.')
 
-# app.bar_chart(name='Geometry count', description='A bar-cart showing the count of each geometry-type in the datasets.',
-#               x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
+app.bar_chart(name='Geometry count', description='A bar-chart showing the count of each geometry-type in the datasets.',
+              x=['polygons', 'lines', 'points'], y=[len(regions_df), len(roads_df), len(cities_df)], color='#984ea3')
